@@ -1,52 +1,233 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Tarjetas Pokémon</title>
-  <link rel="stylesheet" href="../static/styles.css" />
-</head>
-<body>
-  <main class="container">
-    <h1 class="page-title">Mis Pokémon</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokédex</title>
 
-    {% block content %}
-    <section class="cards" aria-label="Lista de Pokémon">
-      <!-- Tarjeta 1 -->
-      <article class="card" tabindex="0" aria-labelledby="name-pika">
-        <div class="card-image">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu" />
-        </div>
-        <div class="card-body">
-          <h2 id="name-pika" class="pokemon-name">{{ pokemons[1][0] }}</h2>
-          <p class="pokemon-type">Tipo: <span class="badge electric">{{ pokemons[1][1] }}</span></p>
-          <p class="pokemon-evo">Evolución: <strong>{{ pokemons[1][2] }}</strong></p>
-        </div>
-      </article>
-      <!-- Tarjeta 2 -->
-      <article class="card" tabindex="0" aria-labelledby="name-char">
-        <div class="card-image">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="Charmander" />
-        </div>
-        <div class="card-body">
-          <h2 id="name-char" class="pokemon-name">{{ pokemons[2][0] }}</h2>
-          <p class="pokemon-type">Tipo: <span class="badge fire">{{ pokemons[2][1] }}</span></p>
-          <p class="pokemon-evo">Evolución: <strong>{{ pokemons[2][2] }}</strong></p>
-        </div>
-      </article>
-      <!-- Tarjeta 3 -->
-      <article class="card" tabindex="0" aria-labelledby="name-squirtle">
-        <div class="card-image">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="Squirtle" />
-        </div>
-        <div class="card-body">
-          <h2 id="name-squirtle" class="pokemon-name">{{ pokemons[3][0] }}</h2>
-          <p class="pokemon-type">Tipo: <span class="badge water">{{ pokemons[3][1] }}</span></p>
-          <p class="pokemon-evo">Evolución: <strong>{{ pokemons[3][2] }}</strong></p>
-        </div>
-      </article>
-    </section>
-    {% endblock %}
-  </main>
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1d2671, #c33764);
+      color: #fff;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background: #ffd700;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ===== CARDS CONTAINER ===== */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* ===== POKEMON CARD ===== */
+    .pokemon-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.4s, box-shadow 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pokemon-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.3), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .pokemon-card:hover::before {
+      opacity: 1;
+    }
+
+    .pokemon-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.45);
+    }
+
+    .pokemon-card img {
+      width: 120px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,0.4));
+      transition: transform 0.4s;
+    }
+
+    .pokemon-card:hover img {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .pokemon-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ===== BADGES ===== */
+    .types {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .electric { background: #f4d03f; color: #333; }
+    .grass { background: #2ecc71; }
+    .poison { background: #9b59b6; }
+    .fire { background: #e74c3c; }
+    .water { background: #3498db; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.3rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="logo">Pokémon</div>
+    <ul>
+      <li><a href="/">Página principal</a></li>
+      <li><a href="/pokemons-extrodinario">Pokémon Extraordinarios</a></li>
+      <li><a href="juego.html">Juego</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HEADER ===== -->
+  <header>
+    <h1>Pokédex</h1>
+  </header>
+
+  <!-- ===== CARDS ===== -->
+  <section class="cards-container">
+
+    <div class="pokemon-card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu">
+      <h2>Pikachu</h2>
+      <div class="types">
+        <span class="badge electric">Eléctrico</span>
+      </div>
+    </div>
+
+    <div class="pokemon-card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
+      <h2>Bulbasaur</h2>
+      <div class="types">
+        <span class="badge grass">Planta</span>
+        <span class="badge poison">Veneno</span>
+      </div>
+    </div>
+
+    <div class="pokemon-card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png" alt="Charmander">
+      <h2>Charmander</h2>
+      <div class="types">
+        <span class="badge fire">Fuego</span>
+      </div>
+    </div>
+
+    <div class="pokemon-card">
+      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png" alt="Squirtle">
+      <h2>Squirtle</h2>
+      <div class="types">
+        <span class="badge water">Agua</span>
+      </div>
+    </div>
+
+  </section>
+
 </body>
 </html>
