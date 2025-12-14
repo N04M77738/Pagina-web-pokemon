@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pokémon Extraordinarios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.85;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      text-align: center;
+      opacity: 0.8;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ===== GRID ===== */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ===== IMAGE ===== */
+    .card-image {
+      background: radial-gradient(circle at top, #ffffff33, transparent);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .card-image img {
+      width: 140px;
+      height: 140px;
+      image-rendering: pixelated;
+    }
+
+    /* ===== BODY ===== */
+    .card-body {
+      padding: 1.4rem;
+    }
+
+    .pokemon-name {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .pokemon-desc {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    /* ===== BADGES ===== */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .electric { background: #f7d02c; color: #333; }
+    .fire { background: #ee8130; }
+    .psychic { background: #f95587; }
+    .dragon { background: #6f35fc; }
+    .ghost { background: #735797; }
+    .steel { background: #b7b7ce; color: #333; }
+    .fairy { background: #d685ad; }
+    .water { background: #6390f0; }
+    .dark { background: #705746; }
+    .flying { background: #a98ff3; }
+
+   /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      opacity: 0.6;
+      font-size: 0.85rem;
+    } 
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav>
+    <div class="logo">Pokémon</div>
+    <ul>
+      <li><a href="/">Página principal</a></li>
+      <li><a href="/pokemons-extrodinario">Pokémon Extraordinarios</a></li>
+      <li><a href="juego.html">Juego</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== CONTENIDO ===== -->
+  <main class="container">
+    <h1 class="page-title">Pokémon Extraordinarios</h1>
+    <p class="subtitle">Criaturas legendarias y singulares con poderes únicos</p>
+
+    <section class="cards">
+
+      <!-- MEWTWO -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png" alt="Mewtwo">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Mewtwo</h2>
+          <p class="pokemon-desc">
+            Pokémon creado mediante ingeniería genética. Posee una inteligencia
+            y poder psíquico extraordinarios.
+          </p>
+          <div class="badges">
+            <span class="badge psychic">Psíquico</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- RAYQUAZA -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/384.png" alt="Rayquaza">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Rayquaza</h2>
+          <p class="pokemon-desc">
+            Guardián de los cielos, encargado de mantener el equilibrio entre
+            fuerzas opuestas.
+          </p>
+          <div class="badges">
+            <span class="badge dragon">Dragón</span>
+            <span class="badge flying">Volador</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- LUGIA -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/249.png" alt="Lugia">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Lugia</h2>
+          <p class="pokemon-desc">
+            Vive en las profundidades del océano. El batir de sus alas
+            puede provocar tormentas devastadoras.
+          </p>
+          <div class="badges">
+            <span class="badge psychic">Psíquico</span>
+            <span class="badge water">Agua</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- GIRATINA -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/487.png" alt="Giratina">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Giratina</h2>
+          <p class="pokemon-desc">
+            Pokémon desterrado a una dimensión paralela.
+            Representa la antimateria del mundo Pokémon.
+          </p>
+          <div class="badges">
+            <span class="badge ghost">Fantasma</span>
+            <span class="badge dragon">Dragón</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- ZACIAN -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/888.png" alt="Zacian">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Zacian</h2>
+          <p class="pokemon-desc">
+            Héroe legendario armado con una espada sagrada.
+            Su velocidad y fuerza superan a muchos Pokémon.
+          </p>
+          <div class="badges">
+            <span class="badge fairy">Hada</span>
+            <span class="badge steel">Acero</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- DARKRAI -->
+      <article class="card">
+        <div class="card-image">
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/491.png" alt="Darkrai">
+        </div>
+        <div class="card-body">
+          <h2 class="pokemon-name">Darkrai</h2>
+          <p class="pokemon-desc">
+            Pokémon singular que provoca pesadillas.
+            Es temido pero no necesariamente malvado.
+          </p>
+          <div class="badges">
+            <span class="badge dark">Siniestro</span>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <footer>
+      © 2025 · Pokémon Extraordinarios · Diseño educativo
+    </footer>
+  </main>
+
+</body>
+</html>
