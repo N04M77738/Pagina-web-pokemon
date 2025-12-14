@@ -12,5 +12,11 @@ datos = {
 def home():
     return render_template("index.html" , pokemons = datos)
 
+@app.route('/pokemons-extrodinario')
+def extrodinario():
+    return render_template("extrodinario.html", pokemons = datos)
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
